@@ -35,7 +35,7 @@ docker官方可能很慢，可以选择各种加速器，如[阿里云加速器]
 
 ~~~
 "RegistryMirror": [
-    "https://zbhkub6p.mirror.aliyuncs.com"
+    "https://ng0d7s68.mirror.aliyuncs.com"
 ],
 ~~~
 
@@ -51,7 +51,7 @@ docker官方可能很慢，可以选择各种加速器，如[阿里云加速器]
 #切换源，安装epel
 sudo mv /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo.backup
 sudo wget -O /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-6.repo
-sudo rpm -Uvh http://mirrors.aliyun.com/epel/6/x86_64/epel-release-6-8.noarch.rpm
+sudo wget -O /etc/yum.repos.d/epel.repo http://mirrors.aliyun.com/repo/epel-6.repo
 sudo yum install docker-io -y
 sudo service docker start
 sudo service docker status
@@ -59,10 +59,11 @@ sudo docker images
 #检查自启动
 sudo chkconfig|grep docker
 sudo chkconfig docker on
-
-#免sudo，需退出登录，重启docker
+#免sudo
 sudo groupadd docker
-sudo usermod -aG docker your_username
+sudo gpasswd -a ${USER} docker
+sudo service docker restart
+#退出登录，重新登录后生效
 ~~~
 
 ## 加速器 
@@ -70,15 +71,11 @@ sudo usermod -aG docker your_username
 ~~~
 sudo vim /etc/sysconfig/docker
 
-other_args="--registry-mirror=https://zbhkub6p.mirror.aliyuncs.com --graph=/usr/local/docker"
+other_args="--registry-mirror=https://ng0d7s68.mirror.aliyuncs.com --graph=/usr/local/docker"
 ~~~
 如根目录/空间不足,先建立目录/usr/local/docker,修改镜像容器位置(默认/var/lib/docker,可以删除).
 
 如出现docker dead but subsys locked,检查/var/logs/docker,sudo docker -d启动看看.可能是配置错误/etc/sysconfig/docker里面的other_args
-
-## 开机自启
-
-
 
 # docker 基本命令
 
@@ -95,11 +92,3 @@ docker rmi ubuntu			#移除镜像
 docker rm 3f8ac 			#删除容器
 docker rm $(docker ps -aq)	#删除所有容器
 ~~~
-
-
-# 下载镜像
-
-
-
-
-

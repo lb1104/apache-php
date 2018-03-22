@@ -5,7 +5,7 @@
 fold_path=$(cd `dirname $0`; pwd)
 #echo $fold_path
 
-docker_run="docker run --name web --restart always -d -v $fold_path:/work -p 80:80 apache-php httpd -DFOREGROUND"
+docker_run="docker run --name web --restart always -d -v $fold_path:/work -p 80:80 lb1104/apache-php httpd -DFOREGROUND"
 #--restart always
 
 is_win=$(echo $OS | grep -i "win")
