@@ -5,3 +5,5 @@ RUN echo -e 'https://mirrors.aliyun.com/alpine/v3.7/main/\nhttps://mirrors.aliyu
     cp -r -f /usr/share/zoneinfo/Asia/Chongqing /etc/localtime && mkdir /run/apache2 && \
     ln -s /work/conf/zl_httpd.conf /etc/apache2/conf.d && \
     ln -s /work/conf/zl_php.ini /etc/php7/conf.d/
+
+EXPOSE 80
